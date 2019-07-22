@@ -6,36 +6,28 @@ function ListBooks(props) {
   const [currentlyReadingShelf, setCurrentlyReadingShelf] = useState({});
   const [wantToReadShelf, setWantToReadShelf] = useState({});
   const [readShelf, setReadShelf] = useState({});
+  const books = Array.from(props.books);
 
+  // Second argument added to avoid infinite chain of updates
   useEffect(() => {
-    const books = Array.from(props.books);
     setCurrentlyReadingShelf(
       books.filter((book) => {
         return book.shelf === 'currentlyReading';
       }),
     );
-    // const currentlyReadingShelf = books.filter((book) => {
-    //   return book.shelf === 'currentlyReading';
-    // });
 
     setWantToReadShelf(
       books.filter((book) => {
         return book.shelf === 'wantToRead';
       }),
     );
-    // const wantToReadShelf = books.filter((book) => {
-    //   return book.shelf === 'wantToRead';
-    // });
 
     setReadShelf(
       books.filter((book) => {
         return book.shelf === 'read';
       }),
     );
-    // const readShelf = books.filter((book) => {
-    //   return book.shelf === 'read';
-    // });
-  });
+  }, [books]);
 
   return (
     <div className="list-books">
