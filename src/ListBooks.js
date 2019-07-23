@@ -29,6 +29,11 @@ function ListBooks(props) {
     );
   }, [books]);
 
+  const updateBook = (book, event) => {
+    props.update(book, event.target.value);
+    // console.log(shelf, event.target.value);
+  };
+
   return (
     <div className="list-books">
       <div className="list-books-title">
@@ -55,7 +60,10 @@ function ListBooks(props) {
                           }}
                         />
                         <div className="book-shelf-changer">
-                          <select>
+                          <select
+                            value={book}
+                            onChange={(event) => updateBook(book, event)}
+                          >
                             <option value="move" disabled>
                               Move to...
                             </option>

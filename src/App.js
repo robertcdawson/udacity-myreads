@@ -14,12 +14,12 @@ function BooksApp(props) {
     });
   });
 
-  // console.log(bookShelves);
+  const changeShelf = BooksAPI.update;
 
   return (
     <div className="app">
       <Router>
-        <ListBooks path="/" books={bookShelves} />
+        <ListBooks path="/" books={bookShelves} update={changeShelf} />
         <SearchBooks path="search" />
       </Router>
     </div>
