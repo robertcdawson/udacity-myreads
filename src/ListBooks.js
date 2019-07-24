@@ -31,7 +31,6 @@ function ListBooks(props) {
 
   const updateBook = (book, event) => {
     props.update(book, event.target.value);
-    // console.log(shelf, event.target.value);
   };
 
   return (
@@ -61,7 +60,7 @@ function ListBooks(props) {
                         />
                         <div className="book-shelf-changer">
                           <select
-                            value={book}
+                            value={book.shelf}
                             onChange={(event) => updateBook(book, event)}
                           >
                             <option value="move" disabled>
@@ -112,7 +111,10 @@ function ListBooks(props) {
                           }}
                         />
                         <div className="book-shelf-changer">
-                          <select>
+                          <select
+                            value={book.shelf}
+                            onChange={(event) => updateBook(book, event)}
+                          >
                             <option value="move" disabled>
                               Move to...
                             </option>
@@ -161,7 +163,10 @@ function ListBooks(props) {
                           }}
                         />
                         <div className="book-shelf-changer">
-                          <select>
+                          <select
+                            value={book.shelf}
+                            onChange={(event) => updateBook(book, event)}
+                          >
                             <option value="move" disabled>
                               Move to...
                             </option>
