@@ -20,7 +20,7 @@ function BooksApp(props) {
     <div className="app">
       <Router>
         <ListBooks path="/" books={bookShelves} update={changeShelf} />
-        <SearchBooks path="search" />
+        <SearchBooks path="search" books={bookShelves} update={changeShelf} />
       </Router>
     </div>
   );
