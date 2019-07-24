@@ -6,8 +6,6 @@ function SearchBooks(props) {
   const [query, setQuery] = useState('');
   const books = props.books;
 
-  console.log(books);
-
   const showingBooks =
     query === ''
       ? books
