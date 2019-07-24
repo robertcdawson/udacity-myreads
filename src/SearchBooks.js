@@ -8,13 +8,13 @@ function SearchBooks(props) {
 
   const showingBooks =
     query === ''
-      ? books
+      ? {}
       : books.filter((book) =>
           book.title.toLowerCase().includes(query.toLowerCase()),
         );
 
   const updateQuery = (query) => {
-    setQuery(query.trim());
+    setQuery(query);
   };
 
   const updateBook = (book, event) => {
