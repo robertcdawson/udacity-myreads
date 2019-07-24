@@ -4,11 +4,13 @@ import './App.css';
 
 function SearchBooks(props) {
   const [query, setQuery] = useState('');
-  const books = Array.from(props.books);
+  const books = props.books;
+
+  console.log(books);
 
   const showingBooks =
     query === ''
-      ? {}
+      ? books
       : books.filter((book) =>
           book.title.toLowerCase().includes(query.toLowerCase()),
         );
