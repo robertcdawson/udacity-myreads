@@ -20,6 +20,13 @@ function BookDetails(props) {
   const infoLink = bookInfo.infoLink;
   const pageCount = bookInfo.pageCount;
   const publishedDate = bookInfo.publishedDate;
+  const shelf = bookInfo.shelf;
+  let shelfReadableName = '';
+
+  if (shelf === 'currentlyReading') shelfReadableName = 'Currently Reading';
+  else if (shelf === 'wantToRead') shelfReadableName = 'Want to Read';
+  else if (shelf === 'read') shelfReadableName = 'Read';
+  else shelfReadableName = 'None';
 
   for (let i in bookInfo.authors) {
     authors.push(bookInfo.authors[i]);
@@ -46,6 +53,7 @@ function BookDetails(props) {
             <h2 className="bookshelf-title">
               {title}
               {subtitle}
+              <span> ({shelfReadableName})</span>
             </h2>
             <p>
               {authors.map((author, index) => {

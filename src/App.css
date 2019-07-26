@@ -54,6 +54,12 @@ body,
   border-bottom: 1px solid #dedede;
 }
 
+.bookshelf-title span {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #999;
+}
+
 .bookshelf-books {
   text-align: center;
 }

@@ -14,6 +14,12 @@ This is my solution for the final assessment project for Udacity's React Fundame
 1. Type `npm start` or `yarn start`.
 1. Open browser to local server URL returned in Terminal (typically, http://localhost:3000/).
 
+## Features
+
+- Select any book cover to view more details about that book.
+- Select the green arrow at the bottom right of any book cover to change that book's shelf.
+- Search for any book by selecting the green plus sign at the bottom right of the bookshelf page.
+
 ### Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). You can find more information on how to perform common tasks [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
