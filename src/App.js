@@ -3,6 +3,7 @@ import { Router } from '@reach/router';
 import * as BooksAPI from './BooksAPI';
 import SearchBooks from './SearchBooks';
 import ListBooks from './ListBooks';
+import BookDetails from './BookDetails';
 import './App.css';
 
 function BooksApp(props) {
@@ -21,6 +22,7 @@ function BooksApp(props) {
       <Router>
         <ListBooks path="/" books={bookShelves} update={changeShelf} />
         <SearchBooks path="search" books={bookShelves} update={changeShelf} />
+        <BookDetails path="details/:bookId" />
       </Router>
     </div>
   );

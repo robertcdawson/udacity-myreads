@@ -57,6 +57,9 @@ function ListBooks(props) {
                               book.imageLinks.smallThumbnail
                             }")`,
                           }}
+                          onClick={(event) =>
+                            navigate(`details/${encodeURI(book.id)}`)
+                          }
                         />
                         <div className="book-shelf-changer">
                           <select
@@ -109,6 +112,9 @@ function ListBooks(props) {
                               book.imageLinks.smallThumbnail
                             }")`,
                           }}
+                          onClick={(event) =>
+                            navigate(`details/${encodeURI(book.id)}`)
+                          }
                         />
                         <div className="book-shelf-changer">
                           <select
@@ -161,6 +167,9 @@ function ListBooks(props) {
                               book.imageLinks.smallThumbnail
                             }")`,
                           }}
+                          onClick={(event) =>
+                            navigate(`details/${encodeURI(book.id)}`)
+                          }
                         />
                         <div className="book-shelf-changer">
                           <select
