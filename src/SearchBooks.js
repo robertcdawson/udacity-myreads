@@ -93,7 +93,6 @@ function SearchBooks(props) {
     for (let term of searchTerms) {
       if (query.toLowerCase() === term.toLowerCase()) {
         BooksAPI.search(query).then((results) => {
-          console.log(results);
           setBooks(results);
         });
       }
