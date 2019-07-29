@@ -90,18 +90,19 @@ function SearchBooks(props) {
   ];
 
   useEffect(() => {
-    for (let term of searchTerms) {
-      if (query.toLowerCase() === term.toLowerCase()) {
-        BooksAPI.search(query).then((results) => {
-          setBooks(results);
-        });
+    if (query !== '') {
+      for (let term of searchTerms) {
+        if (query.toLowerCase() === term.toLowerCase()) {
+          BooksAPI.search(query).then((results) => {
+            setBooks(results);
+          });
+        }
       }
-    }
+    } else setBooks({});
   }, [query, searchTerms]);
 
   const updateQuery = (queryParam) => {
-    const safeQueryParam = queryParam !== undefined ? queryParam : '';
-    setQuery(safeQueryParam);
+    setQuery(queryParam);
   };
 
   const updateBook = (book, event) => {
