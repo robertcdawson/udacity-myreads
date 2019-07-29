@@ -1,20 +1,108 @@
 import React, { useState, useEffect } from 'react';
 import { navigate } from '@reach/router';
+import * as BooksAPI from './BooksAPI';
 import './App.css';
 
 function SearchBooks(props) {
   const [query, setQuery] = useState('');
-  const books = props.books;
+  const [books, setBooks] = useState({});
 
-  const showingBooks =
-    query === ''
-      ? books
-      : books.filter((book) =>
-          book.title.toLowerCase().includes(query.toLowerCase()),
-        );
+  const searchTerms = [
+    'Android',
+    'Art',
+    'Artificial Intelligence',
+    'Astronomy',
+    'Austen',
+    'Baseball',
+    'Basketball',
+    'Bhagat',
+    'Biography',
+    'Brief',
+    'Business',
+    'Camus',
+    'Cervantes',
+    'Christie',
+    'Classics',
+    'Comics',
+    'Cook',
+    'Cricket',
+    'Cycling',
+    'Desai',
+    'Design',
+    'Development',
+    'Digital Marketing',
+    'Drama',
+    'Drawing',
+    'Dumas',
+    'Education',
+    'Everything',
+    'Fantasy',
+    'Film',
+    'Finance',
+    'First',
+    'Fitness',
+    'Football',
+    'Future',
+    'Games',
+    'Gandhi',
+    'Homer',
+    'Horror',
+    'Hugo',
+    'Ibsen',
+    'Journey',
+    'Kafka',
+    'King',
+    'Lahiri',
+    'Larsson',
+    'Learn',
+    'Literary Fiction',
+    'Make',
+    'Manage',
+    'Marquez',
+    'Money',
+    'Mystery',
+    'Negotiate',
+    'Painting',
+    'Philosophy',
+    'Photography',
+    'Poetry',
+    'Production',
+    'Programming',
+    'React',
+    'Redux',
+    'River',
+    'Robotics',
+    'Rowling',
+    'Satire',
+    'Science Fiction',
+    'Shakespeare',
+    'Singh',
+    'Swimming',
+    'Tale',
+    'Thrun',
+    'Time',
+    'Tolstoy',
+    'Travel',
+    'Ultimate',
+    'Virtual Reality',
+    'Web Development',
+    'iOS',
+  ];
 
-  const updateQuery = (query) => {
-    setQuery(query);
+  useEffect(() => {
+    for (let term of searchTerms) {
+      if (query.toLowerCase() === term.toLowerCase()) {
+        BooksAPI.search(query).then((results) => {
+          console.log(results);
+          setBooks(results);
+        });
+      }
+    }
+  }, [query, searchTerms]);
+
+  const updateQuery = (queryParam) => {
+    const safeQueryParam = queryParam !== undefined ? queryParam : '';
+    setQuery(safeQueryParam);
   };
 
   const updateBook = (book, event) => {
@@ -51,51 +139,54 @@ function SearchBooks(props) {
       </div>
       <div className="search-books-results">
         <ol className="books-grid">
-          {Array.from(showingBooks).map((book) => (
-            <li key={book.id}>
-              <div className="book">
-                <div className="book-top">
-                  <div
-                    className="book-cover"
-                    style={{
-                      width: 128,
-                      height: 193,
-                      backgroundImage: `url("${
-                        book.imageLinks.smallThumbnail
-                      }")`,
-                    }}
-                  />
-                  <div className="book-shelf-changer">
-                    <select
-                      value={book.shelf}
-                      onChange={(event) => updateBook(book, event)}
-                    >
-                      <option value="move" disabled>
-                        Move to...
-                      </option>
-                      <option value="currentlyReading">
-                        Currently Reading
-                      </option>
-                      <option value="wantToRead">Want to Read</option>
-                      <option value="read">Read</option>
-                      <option value="none">None</option>
-                    </select>
+          {Array.from(books).map((book) => {
+            const thumbnail = book.hasOwnProperty('imageLinks')
+              ? book.imageLinks.smallThumbnail
+              : '';
+            return (
+              <li key={book.id}>
+                <div className="book">
+                  <div className="book-top">
+                    <div
+                      className="book-cover"
+                      style={{
+                        width: 128,
+                        height: 193,
+                        backgroundImage: `url("${thumbnail}")`,
+                      }}
+                    />
+                    <div className="book-shelf-changer">
+                      <select
+                        value={book.shelf}
+                        onChange={(event) => updateBook(book, event)}
+                      >
+                        <option value="move" disabled>
+                          Move to...
+                        </option>
+                        <option value="currentlyReading">
+                          Currently Reading
+                        </option>
+                        <option value="wantToRead">Want to Read</option>
+                        <option value="read">Read</option>
+                        <option value="none">None</option>
+                      </select>
+                    </div>
                   </div>
-                </div>
-                <div className="book-title">{book.title}</div>
-                <div className="book-authors">
-                  {book.authors.map((author, index) => {
+                  <div className="book-title">{book.title}</div>
+                  <div className="book-authors">
+                    {/* {book.authors.map((author, index) => {
                     if (book.authors.length > 1) {
                       if (index === book.authors.length - 2) {
                         return `${author}, `;
                       }
                     }
                     return author;
-                  })}
+                  })} */}
+                  </div>
                 </div>
-              </div>
-            </li>
-          ))}
+              </li>
+            );
+          })}
         </ol>
       </div>
     </div>

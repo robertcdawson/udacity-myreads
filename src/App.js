@@ -21,7 +21,7 @@ function BooksApp(props) {
     <div className="app">
       <Router>
         <ListBooks path="/" books={bookShelves} update={changeShelf} />
-        <SearchBooks path="search" books={bookShelves} update={changeShelf} />
+        <SearchBooks path="search" update={changeShelf} />
         <BookDetails path="details/:bookId" />
       </Router>
     </div>
