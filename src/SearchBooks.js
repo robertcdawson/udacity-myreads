@@ -1,107 +1,107 @@
-import React, { useState, useEffect } from 'react';
-import { navigate } from '@reach/router';
-import * as BooksAPI from './BooksAPI';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import { navigate } from "@reach/router";
+import * as BooksAPI from "./BooksAPI";
+import "./App.css";
 
 function SearchBooks(props) {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [books, setBooks] = useState({});
 
   const searchTerms = [
-    'Android',
-    'Art',
-    'Artificial Intelligence',
-    'Astronomy',
-    'Austen',
-    'Baseball',
-    'Basketball',
-    'Bhagat',
-    'Biography',
-    'Brief',
-    'Business',
-    'Camus',
-    'Cervantes',
-    'Christie',
-    'Classics',
-    'Comics',
-    'Cook',
-    'Cricket',
-    'Cycling',
-    'Desai',
-    'Design',
-    'Development',
-    'Digital Marketing',
-    'Drama',
-    'Drawing',
-    'Dumas',
-    'Education',
-    'Everything',
-    'Fantasy',
-    'Film',
-    'Finance',
-    'First',
-    'Fitness',
-    'Football',
-    'Future',
-    'Games',
-    'Gandhi',
-    'Homer',
-    'Horror',
-    'Hugo',
-    'Ibsen',
-    'Journey',
-    'Kafka',
-    'King',
-    'Lahiri',
-    'Larsson',
-    'Learn',
-    'Literary Fiction',
-    'Make',
-    'Manage',
-    'Marquez',
-    'Money',
-    'Mystery',
-    'Negotiate',
-    'Painting',
-    'Philosophy',
-    'Photography',
-    'Poetry',
-    'Production',
-    'Programming',
-    'React',
-    'Redux',
-    'River',
-    'Robotics',
-    'Rowling',
-    'Satire',
-    'Science Fiction',
-    'Shakespeare',
-    'Singh',
-    'Swimming',
-    'Tale',
-    'Thrun',
-    'Time',
-    'Tolstoy',
-    'Travel',
-    'Ultimate',
-    'Virtual Reality',
-    'Web Development',
-    'iOS',
+    "Android",
+    "Art",
+    "Artificial Intelligence",
+    "Astronomy",
+    "Austen",
+    "Baseball",
+    "Basketball",
+    "Bhagat",
+    "Biography",
+    "Brief",
+    "Business",
+    "Camus",
+    "Cervantes",
+    "Christie",
+    "Classics",
+    "Comics",
+    "Cook",
+    "Cricket",
+    "Cycling",
+    "Desai",
+    "Design",
+    "Development",
+    "Digital Marketing",
+    "Drama",
+    "Drawing",
+    "Dumas",
+    "Education",
+    "Everything",
+    "Fantasy",
+    "Film",
+    "Finance",
+    "First",
+    "Fitness",
+    "Football",
+    "Future",
+    "Games",
+    "Gandhi",
+    "Homer",
+    "Horror",
+    "Hugo",
+    "Ibsen",
+    "Journey",
+    "Kafka",
+    "King",
+    "Lahiri",
+    "Larsson",
+    "Learn",
+    "Literary Fiction",
+    "Make",
+    "Manage",
+    "Marquez",
+    "Money",
+    "Mystery",
+    "Negotiate",
+    "Painting",
+    "Philosophy",
+    "Photography",
+    "Poetry",
+    "Production",
+    "Programming",
+    "React",
+    "Redux",
+    "River",
+    "Robotics",
+    "Rowling",
+    "Satire",
+    "Science Fiction",
+    "Shakespeare",
+    "Singh",
+    "Swimming",
+    "Tale",
+    "Thrun",
+    "Time",
+    "Tolstoy",
+    "Travel",
+    "Ultimate",
+    "Virtual Reality",
+    "Web Development",
+    "iOS",
   ];
 
-  useEffect(() => {
-    if (query !== '') {
-      for (let term of searchTerms) {
-        if (query.toLowerCase() === term.toLowerCase()) {
-          BooksAPI.search(query).then((results) => {
-            setBooks(results);
-          });
-        }
-      }
-    } else setBooks({});
-  }, [query, searchTerms]);
+  // useEffect(() => {
+  //   if (query !== "") {
+  //     for (let term of searchTerms) {
+  //       if (query.toLowerCase() === term.toLowerCase()) {
+  //         BooksAPI.search(query).then(results => {
+  //           setBooks(results);
+  //         });
+  //       }
+  //     }
+  //   } else setBooks({});
+  // }, [query, searchTerms]);
 
-  const updateQuery = (queryParam) => {
+  const updateQuery = queryParam => {
     setQuery(queryParam);
   };
 
@@ -133,16 +133,16 @@ function SearchBooks(props) {
             type="text"
             placeholder="Search by title or author"
             value={query}
-            onChange={(event) => updateQuery(event.target.value)}
+            onChange={event => updateQuery(event.target.value)}
           />
         </div>
       </div>
       <div className="search-books-results">
         <ol className="books-grid">
-          {Array.from(books).map((book) => {
-            const thumbnail = book.hasOwnProperty('imageLinks')
+          {Array.from(books).map(book => {
+            const thumbnail = book.hasOwnProperty("imageLinks")
               ? book.imageLinks.smallThumbnail
-              : '';
+              : "";
             return (
               <li key={book.id}>
                 <div className="book">
@@ -158,7 +158,7 @@ function SearchBooks(props) {
                     <div className="book-shelf-changer">
                       <select
                         value={book.shelf}
-                        onChange={(event) => updateBook(book, event)}
+                        onChange={event => updateBook(book, event)}
                       >
                         <option value="move" disabled>
                           Move to...

@@ -1,34 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { navigate } from '@reach/router';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import { navigate } from "@reach/router";
+import "./App.css";
 
 function ListBooks(props) {
-  const [currentlyReadingShelf, setCurrentlyReadingShelf] = useState({});
-  const [wantToReadShelf, setWantToReadShelf] = useState({});
-  const [readShelf, setReadShelf] = useState({});
-  const books = Array.from(props.books);
-
-  // Second argument added to avoid infinite chain of updates
-  useEffect(() => {
-    setCurrentlyReadingShelf(
-      books.filter((book) => {
-        return book.shelf === 'currentlyReading';
-      }),
-    );
-
-    setWantToReadShelf(
-      books.filter((book) => {
-        return book.shelf === 'wantToRead';
-      }),
-    );
-
-    setReadShelf(
-      books.filter((book) => {
-        return book.shelf === 'read';
-      }),
-    );
-  }, [books]);
-
   const updateBook = (book, event) => {
     props.update(book, event.target.value);
   };
@@ -44,7 +18,7 @@ function ListBooks(props) {
             <h2 className="bookshelf-title">Currently Reading</h2>
             <div className="bookshelf-books">
               <ol className="books-grid">
-                {Array.from(currentlyReadingShelf).map((book) => (
+                {Array.from(props.currentlyReadingShelf).map(book => (
                   <li key={book.id}>
                     <div className="book">
                       <div className="book-top">
@@ -53,18 +27,16 @@ function ListBooks(props) {
                           style={{
                             width: 128,
                             height: 193,
-                            backgroundImage: `url("${
-                              book.imageLinks.smallThumbnail
-                            }")`,
+                            backgroundImage: `url("${book.imageLinks.smallThumbnail}")`,
                           }}
-                          onClick={(event) =>
+                          onClick={event =>
                             navigate(`details/${encodeURI(book.id)}`)
                           }
                         />
                         <div className="book-shelf-changer">
                           <select
                             value={book.shelf}
-                            onChange={(event) => updateBook(book, event)}
+                            onChange={event => updateBook(book, event)}
                           >
                             <option value="move" disabled>
                               Move to...
@@ -99,7 +71,7 @@ function ListBooks(props) {
             <h2 className="bookshelf-title">Want to Read</h2>
             <div className="bookshelf-books">
               <ol className="books-grid">
-                {Array.from(wantToReadShelf).map((book) => (
+                {Array.from(props.wantToReadShelf).map(book => (
                   <li key={book.id}>
                     <div className="book">
                       <div className="book-top">
@@ -108,18 +80,16 @@ function ListBooks(props) {
                           style={{
                             width: 128,
                             height: 193,
-                            backgroundImage: `url("${
-                              book.imageLinks.smallThumbnail
-                            }")`,
+                            backgroundImage: `url("${book.imageLinks.smallThumbnail}")`,
                           }}
-                          onClick={(event) =>
+                          onClick={event =>
                             navigate(`details/${encodeURI(book.id)}`)
                           }
                         />
                         <div className="book-shelf-changer">
                           <select
                             value={book.shelf}
-                            onChange={(event) => updateBook(book, event)}
+                            onChange={event => updateBook(book, event)}
                           >
                             <option value="move" disabled>
                               Move to...
@@ -154,7 +124,7 @@ function ListBooks(props) {
             <h2 className="bookshelf-title">Read</h2>
             <div className="bookshelf-books">
               <ol className="books-grid">
-                {Array.from(readShelf).map((book) => (
+                {Array.from(props.readShelf).map(book => (
                   <li key={book.id}>
                     <div className="book">
                       <div className="book-top">
@@ -163,18 +133,16 @@ function ListBooks(props) {
                           style={{
                             width: 128,
                             height: 193,
-                            backgroundImage: `url("${
-                              book.imageLinks.smallThumbnail
-                            }")`,
+                            backgroundImage: `url("${book.imageLinks.smallThumbnail}")`,
                           }}
-                          onClick={(event) =>
+                          onClick={event =>
                             navigate(`details/${encodeURI(book.id)}`)
                           }
                         />
                         <div className="book-shelf-changer">
                           <select
                             value={book.shelf}
-                            onChange={(event) => updateBook(book, event)}
+                            onChange={event => updateBook(book, event)}
                           >
                             <option value="move" disabled>
                               Move to...
@@ -208,7 +176,7 @@ function ListBooks(props) {
         </div>
       </div>
       <div className="open-search">
-        <button onClick={() => navigate('/search/')}>Add a book</button>
+        <button onClick={() => navigate("/search/")}>Add a book</button>
       </div>
     </div>
   );
