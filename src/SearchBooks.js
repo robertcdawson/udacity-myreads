@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+// import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { navigate } from "@reach/router";
 import * as BooksAPI from "./BooksAPI";
 import "./App.css";
@@ -6,88 +7,89 @@ import "./App.css";
 function SearchBooks(props) {
   const [query, setQuery] = useState("");
   const [books, setBooks] = useState({});
+  const [shelf, setShelf] = useState("none");
 
-  const searchTerms = [
-    "Android",
-    "Art",
-    "Artificial Intelligence",
-    "Astronomy",
-    "Austen",
-    "Baseball",
-    "Basketball",
-    "Bhagat",
-    "Biography",
-    "Brief",
-    "Business",
-    "Camus",
-    "Cervantes",
-    "Christie",
-    "Classics",
-    "Comics",
-    "Cook",
-    "Cricket",
-    "Cycling",
-    "Desai",
-    "Design",
-    "Development",
-    "Digital Marketing",
-    "Drama",
-    "Drawing",
-    "Dumas",
-    "Education",
-    "Everything",
-    "Fantasy",
-    "Film",
-    "Finance",
-    "First",
-    "Fitness",
-    "Football",
-    "Future",
-    "Games",
-    "Gandhi",
-    "Homer",
-    "Horror",
-    "Hugo",
-    "Ibsen",
-    "Journey",
-    "Kafka",
-    "King",
-    "Lahiri",
-    "Larsson",
-    "Learn",
-    "Literary Fiction",
-    "Make",
-    "Manage",
-    "Marquez",
-    "Money",
-    "Mystery",
-    "Negotiate",
-    "Painting",
-    "Philosophy",
-    "Photography",
-    "Poetry",
-    "Production",
-    "Programming",
-    "React",
-    "Redux",
-    "River",
-    "Robotics",
-    "Rowling",
-    "Satire",
-    "Science Fiction",
-    "Shakespeare",
-    "Singh",
-    "Swimming",
-    "Tale",
-    "Thrun",
-    "Time",
-    "Tolstoy",
-    "Travel",
-    "Ultimate",
-    "Virtual Reality",
-    "Web Development",
-    "iOS",
-  ];
+  // const searchTerms = [
+  //   "Android",
+  //   "Art",
+  //   "Artificial Intelligence",
+  //   "Astronomy",
+  //   "Austen",
+  //   "Baseball",
+  //   "Basketball",
+  //   "Bhagat",
+  //   "Biography",
+  //   "Brief",
+  //   "Business",
+  //   "Camus",
+  //   "Cervantes",
+  //   "Christie",
+  //   "Classics",
+  //   "Comics",
+  //   "Cook",
+  //   "Cricket",
+  //   "Cycling",
+  //   "Desai",
+  //   "Design",
+  //   "Development",
+  //   "Digital Marketing",
+  //   "Drama",
+  //   "Drawing",
+  //   "Dumas",
+  //   "Education",
+  //   "Everything",
+  //   "Fantasy",
+  //   "Film",
+  //   "Finance",
+  //   "First",
+  //   "Fitness",
+  //   "Football",
+  //   "Future",
+  //   "Games",
+  //   "Gandhi",
+  //   "Homer",
+  //   "Horror",
+  //   "Hugo",
+  //   "Ibsen",
+  //   "Journey",
+  //   "Kafka",
+  //   "King",
+  //   "Lahiri",
+  //   "Larsson",
+  //   "Learn",
+  //   "Literary Fiction",
+  //   "Make",
+  //   "Manage",
+  //   "Marquez",
+  //   "Money",
+  //   "Mystery",
+  //   "Negotiate",
+  //   "Painting",
+  //   "Philosophy",
+  //   "Photography",
+  //   "Poetry",
+  //   "Production",
+  //   "Programming",
+  //   "React",
+  //   "Redux",
+  //   "River",
+  //   "Robotics",
+  //   "Rowling",
+  //   "Satire",
+  //   "Science Fiction",
+  //   "Shakespeare",
+  //   "Singh",
+  //   "Swimming",
+  //   "Tale",
+  //   "Thrun",
+  //   "Time",
+  //   "Tolstoy",
+  //   "Travel",
+  //   "Ultimate",
+  //   "Virtual Reality",
+  //   "Web Development",
+  //   "iOS",
+  // ];
 
   // useEffect(() => {
   //   if (query !== "") {
@@ -103,10 +105,23 @@ function SearchBooks(props) {
 
   const updateQuery = queryParam => {
     setQuery(queryParam);
+    if (queryParam !== "") {
+      // for (let term of searchTerms) {
+      //   if (queryParam.toLowerCase() === term.toLowerCase()) {
+      //     BooksAPI.search(queryParam).then(results => {
+      //       setBooks(results);
+      //     });
+      //   }
+      // }
+      BooksAPI.search(queryParam).then(results => {
+        setBooks(results);
+      });
+    } else setBooks({});
   };
 
   const updateBook = (book, event) => {
     props.update(book, event.target.value);
+    setShelf(event.target.value);
   };
 
   return (
@@ -134,6 +149,7 @@ function SearchBooks(props) {
             placeholder="Search by title or author"
             value={query}
             onChange={event => updateQuery(event.target.value)}
+            autoFocus
           />
         </div>
       </div>
@@ -157,7 +173,7 @@ function SearchBooks(props) {
                     />
                     <div className="book-shelf-changer">
                       <select
-                        value={book.shelf}
+                        value="none"
                         onChange={event => updateBook(book, event)}
                       >
                         <option value="move" disabled>
