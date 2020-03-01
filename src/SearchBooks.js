@@ -24,7 +24,6 @@ function SearchBooks(props) {
     const bookShelves = props.bookShelves;
 
     const bookOnShelf = bookShelves.filter((book) => {
-      // return Object.values(book).includes('-nmNsArK9aoC');
       return Object.values(book).includes(bookId) === true;
     });
 
