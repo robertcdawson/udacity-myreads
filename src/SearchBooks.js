@@ -20,11 +20,19 @@ function SearchBooks(props) {
     props.update(book, event.target.value);
   };
 
-  const getShelf = (book) => {
-    const foundBook = Array.from(props.bookShelves).filter((bookToCompare) => {
-      return bookToCompare.id === book.id;
+  const getShelf = (bookId) => {
+    const bookShelves = props.bookShelves;
+
+    const bookOnShelf = bookShelves.filter((book) => {
+      // return Object.values(book).includes('-nmNsArK9aoC');
+      return Object.values(book).includes(bookId) === true;
     });
-    return foundBook[0].shelf;
+
+    if (bookOnShelf.length) {
+      return bookOnShelf[0].shelf;
+    } else {
+      return 'none';
+    }
   };
 
   return (
@@ -54,12 +62,6 @@ function SearchBooks(props) {
             const thumbnail = book.hasOwnProperty('imageLinks')
               ? book.imageLinks.smallThumbnail
               : '';
-            // const foundBook = Array.from(props.bookShelves).filter(
-            //   (bookToCompare) => {
-            //     return bookToCompare.id === book.id;
-            //   },
-            // );
-            console.log(getShelf(book));
             return (
               <li key={book.id}>
                 <div className="book">
@@ -74,7 +76,7 @@ function SearchBooks(props) {
                     />
                     <div className="book-shelf-changer">
                       <select
-                        value="none"
+                        value={getShelf(book.id)}
                         onChange={(event) => updateBook(book, event)}
                       >
                         <option value="move" disabled>
