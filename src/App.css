@@ -32,6 +32,12 @@ body,
   flex: 1;
 }
 
+.centered-content {
+  padding: 0 1vw;
+  flex: 1;
+  text-align: center;
+}
+
 .bookshelf {
   padding: 0 10px 20px;
 }

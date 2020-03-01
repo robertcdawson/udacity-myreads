@@ -1,119 +1,16 @@
-// import React, { useState, useEffect } from "react";
-import React, { useState } from "react";
-import { navigate } from "@reach/router";
-import * as BooksAPI from "./BooksAPI";
-import "./App.css";
+import React, { useState } from 'react';
+import { navigate } from '@reach/router';
+import * as BooksAPI from './BooksAPI';
+import './App.css';
 
 function SearchBooks(props) {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
   const [books, setBooks] = useState({});
-  const [shelf, setShelf] = useState("none");
 
-  // const searchTerms = [
-  //   "Android",
-  //   "Art",
-  //   "Artificial Intelligence",
-  //   "Astronomy",
-  //   "Austen",
-  //   "Baseball",
-  //   "Basketball",
-  //   "Bhagat",
-  //   "Biography",
-  //   "Brief",
-  //   "Business",
-  //   "Camus",
-  //   "Cervantes",
-  //   "Christie",
-  //   "Classics",
-  //   "Comics",
-  //   "Cook",
-  //   "Cricket",
-  //   "Cycling",
-  //   "Desai",
-  //   "Design",
-  //   "Development",
-  //   "Digital Marketing",
-  //   "Drama",
-  //   "Drawing",
-  //   "Dumas",
-  //   "Education",
-  //   "Everything",
-  //   "Fantasy",
-  //   "Film",
-  //   "Finance",
-  //   "First",
-  //   "Fitness",
-  //   "Football",
-  //   "Future",
-  //   "Games",
-  //   "Gandhi",
-  //   "Homer",
-  //   "Horror",
-  //   "Hugo",
-  //   "Ibsen",
-  //   "Journey",
-  //   "Kafka",
-  //   "King",
-  //   "Lahiri",
-  //   "Larsson",
-  //   "Learn",
-  //   "Literary Fiction",
-  //   "Make",
-  //   "Manage",
-  //   "Marquez",
-  //   "Money",
-  //   "Mystery",
-  //   "Negotiate",
-  //   "Painting",
-  //   "Philosophy",
-  //   "Photography",
-  //   "Poetry",
-  //   "Production",
-  //   "Programming",
-  //   "React",
-  //   "Redux",
-  //   "River",
-  //   "Robotics",
-  //   "Rowling",
-  //   "Satire",
-  //   "Science Fiction",
-  //   "Shakespeare",
-  //   "Singh",
-  //   "Swimming",
-  //   "Tale",
-  //   "Thrun",
-  //   "Time",
-  //   "Tolstoy",
-  //   "Travel",
-  //   "Ultimate",
-  //   "Virtual Reality",
-  //   "Web Development",
-  //   "iOS",
-  // ];
-
-  // useEffect(() => {
-  //   if (query !== "") {
-  //     for (let term of searchTerms) {
-  //       if (query.toLowerCase() === term.toLowerCase()) {
-  //         BooksAPI.search(query).then(results => {
-  //           setBooks(results);
-  //         });
-  //       }
-  //     }
-  //   } else setBooks({});
-  // }, [query, searchTerms]);
-
-  const updateQuery = queryParam => {
+  const updateQuery = (queryParam) => {
     setQuery(queryParam);
-    if (queryParam !== "") {
-      // for (let term of searchTerms) {
-      //   if (queryParam.toLowerCase() === term.toLowerCase()) {
-      //     BooksAPI.search(queryParam).then(results => {
-      //       setBooks(results);
-      //     });
-      //   }
-      // }
-      BooksAPI.search(queryParam).then(results => {
+    if (queryParam !== '') {
+      BooksAPI.search(queryParam).then((results) => {
         setBooks(results);
       });
     } else setBooks({});
@@ -121,7 +18,13 @@ function SearchBooks(props) {
 
   const updateBook = (book, event) => {
     props.update(book, event.target.value);
-    setShelf(event.target.value);
+  };
+
+  const getShelf = (book) => {
+    const foundBook = Array.from(props.bookShelves).filter((bookToCompare) => {
+      return bookToCompare.id === book.id;
+    });
+    return foundBook[0].shelf;
   };
 
   return (
@@ -136,29 +39,27 @@ function SearchBooks(props) {
           Close
         </button>
         <div className="search-books-input-wrapper">
-          {/*
-                NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                You can find these search terms here:
-                https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-                However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                you don't find a specific author or title. Every search is limited by search terms.
-              */}
           <input
             type="text"
             placeholder="Search by title or author"
             value={query}
-            onChange={event => updateQuery(event.target.value)}
+            onChange={(event) => updateQuery(event.target.value)}
             autoFocus
           />
         </div>
       </div>
       <div className="search-books-results">
         <ol className="books-grid">
-          {Array.from(books).map(book => {
-            const thumbnail = book.hasOwnProperty("imageLinks")
+          {Array.from(books).map((book) => {
+            const thumbnail = book.hasOwnProperty('imageLinks')
               ? book.imageLinks.smallThumbnail
-              : "";
+              : '';
+            // const foundBook = Array.from(props.bookShelves).filter(
+            //   (bookToCompare) => {
+            //     return bookToCompare.id === book.id;
+            //   },
+            // );
+            console.log(getShelf(book));
             return (
               <li key={book.id}>
                 <div className="book">
@@ -174,7 +75,7 @@ function SearchBooks(props) {
                     <div className="book-shelf-changer">
                       <select
                         value="none"
-                        onChange={event => updateBook(book, event)}
+                        onChange={(event) => updateBook(book, event)}
                       >
                         <option value="move" disabled>
                           Move to...
@@ -190,14 +91,7 @@ function SearchBooks(props) {
                   </div>
                   <div className="book-title">{book.title}</div>
                   <div className="book-authors">
-                    {/* {book.authors.map((author, index) => {
-                    if (book.authors.length > 1) {
-                      if (index === book.authors.length - 2) {
-                        return `${author}, `;
-                      }
-                    }
-                    return author;
-                  })} */}
+                    {book.authors && book.authors.join(', ')}
                   </div>
                 </div>
               </li>

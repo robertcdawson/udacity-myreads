@@ -1,7 +1,6 @@
-// import React, { useState, useEffect } from "react";
-import React from "react";
-import { navigate } from "@reach/router";
-import "./App.css";
+import React from 'react';
+import { navigate } from '@reach/router';
+import './App.css';
 
 function ListBooks(props) {
   const updateBook = (book, event) => {
@@ -19,7 +18,7 @@ function ListBooks(props) {
             <h2 className="bookshelf-title">Currently Reading</h2>
             <div className="bookshelf-books">
               <ol className="books-grid">
-                {Array.from(props.currentlyReadingShelf).map(book => (
+                {Array.from(props.currentlyReadingShelf).map((book) => (
                   <li key={book.id}>
                     <div className="book">
                       <div className="book-top">
@@ -30,14 +29,14 @@ function ListBooks(props) {
                             height: 193,
                             backgroundImage: `url("${book.imageLinks.smallThumbnail}")`,
                           }}
-                          onClick={event =>
+                          onClick={(event) =>
                             navigate(`details/${encodeURI(book.id)}`)
                           }
                         />
                         <div className="book-shelf-changer">
                           <select
                             value={book.shelf}
-                            onChange={event => updateBook(book, event)}
+                            onChange={(event) => updateBook(book, event)}
                           >
                             <option value="move" disabled>
                               Move to...
@@ -53,14 +52,7 @@ function ListBooks(props) {
                       </div>
                       <div className="book-title">{book.title}</div>
                       <div className="book-authors">
-                        {book.authors.map((author, index) => {
-                          if (book.authors.length > 1) {
-                            if (index === book.authors.length - 2) {
-                              return `${author}, `;
-                            }
-                          }
-                          return author;
-                        })}
+                        {book.authors && book.authors.join(', ')}
                       </div>
                     </div>
                   </li>
@@ -72,7 +64,7 @@ function ListBooks(props) {
             <h2 className="bookshelf-title">Want to Read</h2>
             <div className="bookshelf-books">
               <ol className="books-grid">
-                {Array.from(props.wantToReadShelf).map(book => (
+                {Array.from(props.wantToReadShelf).map((book) => (
                   <li key={book.id}>
                     <div className="book">
                       <div className="book-top">
@@ -83,14 +75,14 @@ function ListBooks(props) {
                             height: 193,
                             backgroundImage: `url("${book.imageLinks.smallThumbnail}")`,
                           }}
-                          onClick={event =>
+                          onClick={(event) =>
                             navigate(`details/${encodeURI(book.id)}`)
                           }
                         />
                         <div className="book-shelf-changer">
                           <select
                             value={book.shelf}
-                            onChange={event => updateBook(book, event)}
+                            onChange={(event) => updateBook(book, event)}
                           >
                             <option value="move" disabled>
                               Move to...
@@ -106,14 +98,7 @@ function ListBooks(props) {
                       </div>
                       <div className="book-title">{book.title}</div>
                       <div className="book-authors">
-                        {book.authors.map((author, index) => {
-                          if (book.authors.length > 1) {
-                            if (index === book.authors.length - 2) {
-                              return `${author}, `;
-                            }
-                          }
-                          return author;
-                        })}
+                        {book.authors && book.authors.join(', ')}
                       </div>
                     </div>
                   </li>
@@ -125,7 +110,7 @@ function ListBooks(props) {
             <h2 className="bookshelf-title">Read</h2>
             <div className="bookshelf-books">
               <ol className="books-grid">
-                {Array.from(props.readShelf).map(book => (
+                {Array.from(props.readShelf).map((book) => (
                   <li key={book.id}>
                     <div className="book">
                       <div className="book-top">
@@ -136,14 +121,14 @@ function ListBooks(props) {
                             height: 193,
                             backgroundImage: `url("${book.imageLinks.smallThumbnail}")`,
                           }}
-                          onClick={event =>
+                          onClick={(event) =>
                             navigate(`details/${encodeURI(book.id)}`)
                           }
                         />
                         <div className="book-shelf-changer">
                           <select
                             value={book.shelf}
-                            onChange={event => updateBook(book, event)}
+                            onChange={(event) => updateBook(book, event)}
                           >
                             <option value="move" disabled>
                               Move to...
@@ -159,14 +144,7 @@ function ListBooks(props) {
                       </div>
                       <div className="book-title">{book.title}</div>
                       <div className="book-authors">
-                        {book.authors.map((author, index) => {
-                          if (book.authors.length > 1) {
-                            if (index === book.authors.length - 2) {
-                              return `${author}, `;
-                            }
-                          }
-                          return author;
-                        })}
+                        {book.authors && book.authors.join(', ')}
                       </div>
                     </div>
                   </li>
@@ -177,7 +155,7 @@ function ListBooks(props) {
         </div>
       </div>
       <div className="open-search">
-        <button onClick={() => navigate("/search/")}>Add a book</button>
+        <button onClick={() => navigate('/search/')}>Add a book</button>
       </div>
     </div>
   );

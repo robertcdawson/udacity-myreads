@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { Router } from "@reach/router";
-import * as BooksAPI from "./BooksAPI";
-import SearchBooks from "./SearchBooks";
-import ListBooks from "./ListBooks";
-import BookDetails from "./BookDetails";
-import "./App.css";
+import React, { useState, useEffect } from 'react';
+import { Router } from '@reach/router';
+import * as BooksAPI from './BooksAPI';
+import SearchBooks from './SearchBooks';
+import ListBooks from './ListBooks';
+import BookDetails from './BookDetails';
+import NotFound from './NotFound';
+import './App.css';
 
 function BooksApp(props) {
   const [bookShelves, setBookShelves] = useState({});
@@ -14,26 +15,26 @@ function BooksApp(props) {
 
   useEffect(() => {
     BooksAPI.getAll()
-      .then(books => {
+      .then((books) => {
         setBookShelves(books);
       })
       .then(() => {
         setCurrentlyReadingShelf(
-          Array.from(bookShelves).filter(book => {
-            return book.shelf === "currentlyReading";
-          })
+          Array.from(bookShelves).filter((book) => {
+            return book.shelf === 'currentlyReading';
+          }),
         );
 
         setWantToReadShelf(
-          Array.from(bookShelves).filter(book => {
-            return book.shelf === "wantToRead";
-          })
+          Array.from(bookShelves).filter((book) => {
+            return book.shelf === 'wantToRead';
+          }),
         );
 
         setReadShelf(
-          Array.from(bookShelves).filter(book => {
-            return book.shelf === "read";
-          })
+          Array.from(bookShelves).filter((book) => {
+            return book.shelf === 'read';
+          }),
         );
       });
   }, [bookShelves]);
@@ -50,8 +51,13 @@ function BooksApp(props) {
           readShelf={readShelf}
           update={changeShelf}
         />
-        <SearchBooks path="search" update={changeShelf} />
+        <SearchBooks
+          path="search"
+          bookShelves={bookShelves}
+          update={changeShelf}
+        />
         <BookDetails path="details/:bookId" />
+        <NotFound default />
       </Router>
     </div>
   );
